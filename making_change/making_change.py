@@ -3,12 +3,6 @@
 import sys
 
 
-# def making_change(amount, denominations):
-#     denominations.sort()
-#     num_ways = {}
-#     for denomination in denominations:
-
-
 def making_change(amount, denominations):
     m = len(denominations)
     # table[i] will be storing the number of solutions for
