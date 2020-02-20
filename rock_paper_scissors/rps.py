@@ -14,44 +14,52 @@ import sys
 
 
 def rps_recursive_helper(rps, rounds_left):
-    rps_play = [['rock'], ['paper'], ['scissors']]
-    if rounds_left == 0:
-        return rps
-    else:
-        print('click')
-        for x in range(2):
-            rps_recursive_helper(rps+rps_play[x], rounds_left-1)
+    if rounds_left > 0:
+        thirds = len(rps)//3
+        rock = rps[:thirds]
+        paper = rps[thirds:thirds*2]
+        scissors = rps[thirds*2:]
+
+        [item.extend(['rock']) for item in rock[:len(rock)//3]]
+        [item.extend(['paper']) for item in rock[len(rock)//3:len(rock)//3*2]]
+        [item.extend(['scissors']) for item in rock[len(rock)//3*2:]]
+
+        [item.extend(['rock']) for item in paper[:len(rock)//3]]
+        [item.extend(['paper']) for item in paper[len(rock)//3:len(rock)//3*2]]
+        [item.extend(['scissors']) for item in paper[len(rock)//3*2:]]
+
+        [item.extend(['rock']) for item in scissors[:len(rock)//3]]
+        [item.extend(['paper']) for item in scissors[len(rock)//3:len(rock)//3*2]]
+        [item.extend(['scissors']) for item in scissors[len(rock)//3*2:]]
+
+        rps_recursive_helper(rock, rounds_left-1)
+        rps_recursive_helper(paper, rounds_left-1)
+        rps_recursive_helper(scissors, rounds_left-1)
+
+        rps = rock+paper+scissors
+
+    return rps
 
 
 def rock_paper_scissors(n):
+    if n == 0:
+        return [[]]
+    total = 3**n
+    third_total = total//3
+    # Create the initial list
     rps = []
-    rps = rps_recursive_helper(rps, n)
+    for x in range(third_total):
+        rps.append(['rock'])
+    for x in range(third_total):
+        rps.append(['paper'])
+    for x in range(third_total):
+        rps.append(['scissors'])
+    rps = rps_recursive_helper(rps, n-1)
     return rps
 
-# def rock_paper_scissors(n):
-#     # Define rps plays
-#     # rps_play = ['rock', 'paper', 'scissors']
-#     total = 3**n
-#     third_total = total//3
-#     # Initialize as list
-#     if n == 0:
-#         return rps
-#     # Create the initial list
-#     if rps == []:
-#         for x in range(third_total):
-#             rps.append(['rock'])
-#         for x in range(third_total):
-#             rps.append(['paper'])
-#         for x in range(third_total):
-#             rps.append(['scissors'])
-#     thirds = len(rps)//3
-#     rps_recursive_helper(n, rps)
-#     return rps
 
-# test2 = [['rock'], ['rock'], ['rock'], ['paper'], ['paper'], ['paper'], ['scissors'], ['scissors'], ['scissors']]
-# rps_recursive_helper(3, test2)
-# print(test2)
-print(rock_paper_scissors(2))
+print(rock_paper_scissors(3))
+
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
